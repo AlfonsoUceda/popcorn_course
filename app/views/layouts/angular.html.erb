@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="popcornApp">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yeild(:title) : "Popcorn" %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+  </head>
+  <body>
+
+    <div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <h1><a href="/">Popcorn!</a></h1>
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right user-panel-container">
+            <li class="active">
+              <!-- user info will go here soon -->
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div id="primary">
+      <div ng-view></div>
+    </div>
+
+    <div ng-controller="MoviesController" id="primary">
+      <div class="container">
+        <div class="row">
+          <div ng-repeat="movie in movies" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="movie-container">
+              <a href="/movie/{{movie.youtubeId}}">
+                <div class="thumbnail">
+                  <div class="poster img-rounded">
+                    <img ng-src="{{movie.posterUrl}}" alt="{{movie.title}}">
+                  </div>
+                </div>
+                <div class="title">
+                  {{movie.title}}
+                </div>
+              </a>
+              <a class="favorite"
+                ng-click="removeFavorite(movie)"
+                ng-if="movie.isFavorite">
+                <span class="favorited-heart">&#x2665;</span> Favorite
+              </a>
+              <a class="favorite"
+                ng-click="addFavorite(movie)"
+                ng-if="!movie.isFavorite">
+                <span class="unfavorited-heart">&#x2661;</span> Add Favorite
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="f">
+      <div class="container">
+        <div class="row">
+          <p>Crafted with love by Fullstack.io.</p>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>
